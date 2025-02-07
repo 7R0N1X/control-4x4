@@ -10,7 +10,7 @@ export const TableCell = ({ children, type, textPosition }: TableCellProps) => {
   if (type === "head") {
     return (
       <th
-        className={`border-b border-[#E4E4E7] px-4 py-2 ${textPosition ? textPosition : "text-start"} w-full text-sm font-medium whitespace-nowrap text-[#52525B]`}
+        className={`border-b border-[#E4E4E7] px-4 py-2 ${textPosition ? textPosition : "text-start"} text-sm font-medium whitespace-nowrap text-[#52525B] max-sm:w-full`}
       >
         {children}
       </th>
@@ -20,7 +20,7 @@ export const TableCell = ({ children, type, textPosition }: TableCellProps) => {
   if (type === "body") {
     return (
       <td
-        className={`border-b border-[#E4E4E7] px-4 py-2 ${textPosition ? textPosition : "text-start"} w-full text-sm font-normal whitespace-nowrap text-[#18181b]`}
+        className={`border-b border-[#E4E4E7] px-4 py-2 ${textPosition ? textPosition : "text-start"} text-sm font-normal whitespace-nowrap text-[#18181b] max-sm:w-full`}
       >
         {children}
       </td>

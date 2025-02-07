@@ -1,13 +1,13 @@
 import React from "react";
 
-interface InputProps {
+interface FormInputProps {
   id: string;
   type: string;
   placeholder: string;
   icon: React.ElementType;
 }
 
-export const Input = ({ id, type, placeholder, icon }: InputProps) => {
+export const FormInput = ({ id, type, placeholder, icon }: FormInputProps) => {
   return (
     <div className="relative inline-block">
       {React.createElement(icon, {

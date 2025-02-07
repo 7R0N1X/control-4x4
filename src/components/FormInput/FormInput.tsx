@@ -18,7 +18,7 @@ export const FormInput = ({ id, type, placeholder, icon }: FormInputProps) => {
         id={id}
         type={type}
         placeholder={placeholder}
-        className="flex w-full rounded-md border border-[#9394A5]/50 bg-[#FAFAFA] py-2 pr-3 pl-10 text-sm"
+        className="flex h-10 w-full rounded-md border border-[#9394A5]/50 bg-[#FAFAFA] py-2 pr-3 pl-10 text-sm"
       />
     </div>
   );

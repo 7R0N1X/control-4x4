@@ -5,7 +5,7 @@ interface FormLabelProps {
 
 export const FormLabel = ({ htmlFor, text }: FormLabelProps) => {
   return (
-    <label htmlFor={htmlFor} className="text-sm font-medium text-[#9394A5]">
+    <label htmlFor={htmlFor} className="text-sm font-medium text-[#1a1a1a]">
       {text}
     </label>
   );

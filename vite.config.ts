@@ -12,6 +12,7 @@ export default defineConfig({
       "@assets": `${path.resolve(__dirname, "src/assets")}`,
       "@layouts": `${path.resolve(__dirname, "src/layouts")}`,
       "@pages": `${path.resolve(__dirname, "src/pages")}`,
+      "@sections": `${path.resolve(__dirname, "src/sections")}`,
     },
   },
 });

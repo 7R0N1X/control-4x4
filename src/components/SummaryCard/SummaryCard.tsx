@@ -8,7 +8,7 @@ interface SummaryCardProps {
 
 export const SummaryCard = ({ icon, title, amount }: SummaryCardProps) => {
   return (
-    <div className="w-full rounded-[8px] border border-[#E4E4E7] bg-white p-6 shadow-sm">
+    <div className="w-full rounded-[8px] bg-white p-6 ring shadow-sm ring-[#E4E4E7]">
       <div className="space-y-2">
         <p className="flex items-center gap-2.5 text-sm font-medium text-[#52525B]">
           {React.createElement(icon, {

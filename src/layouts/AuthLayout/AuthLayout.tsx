@@ -8,7 +8,7 @@ interface AuthLayout {
 
 export const AuthLayout = ({ title, description, children }: AuthLayout) => {
   return (
-    <section className="grid h-screen grid-cols-1 max-sm:p-4 lg:grid-cols-2">
+    <section className="grid h-[100dvh] grid-cols-1 max-sm:p-4 lg:grid-cols-2">
       <div className="h-full w-full overflow-hidden max-lg:hidden">
         <img src={img} alt="" className="h-full w-full object-cover" />
       </div>

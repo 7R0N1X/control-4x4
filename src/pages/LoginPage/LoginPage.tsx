@@ -49,7 +49,7 @@ export const LoginPage = () => {
 
         <FormLink
           variant="center"
-          href=""
+          href="/register"
           text="¿No tienes una cuenta? Regístrate"
         />
       </form>

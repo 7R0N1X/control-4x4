@@ -31,7 +31,6 @@ export const RegisterPage = () => {
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        action=""
         className="mt-8 w-full max-w-[450px] space-y-4 rounded-lg p-6 ring shadow-sm ring-[#9394A5]/20"
       >
         <div className="flex flex-col gap-2">

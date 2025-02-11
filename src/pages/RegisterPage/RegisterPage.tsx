@@ -16,12 +16,13 @@ type FormData = {
 };
 
 export const RegisterPage = () => {
-  const { register, handleSubmit } = useForm<FormData>();
+  const { register, handleSubmit, reset } = useForm<FormData>();
   const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const { userName, email, password } = data;
     dispatch(createUserWithEmailAndPasswordThunk(userName, email, password));
+    reset();
   };
 
   return (

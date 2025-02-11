@@ -1,23 +1,48 @@
+import { AuthLayout } from "@layouts/AuthLayout/AuthLayout";
 import { FormButton } from "@components/FormButton/FormButton";
 import { FormInput } from "@components/FormInput/FormInput";
 import { FormLabel } from "@components/FormLabel/FormLabel";
 import { FormLink } from "@components/FormLink/FormLink";
-import { AuthLayout } from "@layouts/AuthLayout/AuthLayout";
 import { LockIcon, Mail, User } from "lucide-react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { createUserWithEmailAndPasswordThunk } from "@store/auth/authThunk";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@store/store";
+
+type FormData = {
+  userName: string;
+  email: string;
+  password: string;
+};
 
 export const RegisterPage = () => {
+  const { register, handleSubmit } = useForm<FormData>();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    const { userName, email, password } = data;
+    dispatch(createUserWithEmailAndPasswordThunk(userName, email, password));
+  };
+
   return (
     <AuthLayout
       title="Crear cuenta"
       description="Ingresa tus datos para registrarte"
     >
       <form
+        onSubmit={handleSubmit(onSubmit)}
         action=""
         className="mt-8 w-full max-w-[450px] space-y-4 rounded-lg p-6 ring shadow-sm ring-[#9394A5]/20"
       >
         <div className="flex flex-col gap-2">
-          <FormLabel htmlFor="user" text="Usuario" />
-          <FormInput id="user" type="text" placeholder="Usuario" icon={User} />
+          <FormLabel htmlFor="userName" text="Usuario" />
+          <FormInput
+            id="userName"
+            type="text"
+            placeholder="Usuario"
+            icon={User}
+            {...register("userName")}
+          />
         </div>
 
         <div className="flex flex-col gap-2">
@@ -27,6 +52,7 @@ export const RegisterPage = () => {
             type="email"
             placeholder="Correo Electrónico"
             icon={Mail}
+            {...register("email")}
           />
         </div>
 
@@ -37,6 +63,7 @@ export const RegisterPage = () => {
             type="password"
             placeholder="Contraseña"
             icon={LockIcon}
+            {...register("password")}
           />
         </div>
 

@@ -29,6 +29,7 @@
       "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
       "@sections/*": ["src/sections/*"],
+      "@store/*": ["src/store/*"],
     }
   },
   "include": ["src"]

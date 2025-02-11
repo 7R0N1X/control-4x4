@@ -8,11 +8,11 @@ export interface AuthState {
 
 const initialState: AuthState = {
   user: {
-    uid: "",
-    displayName: "",
-    email: "",
-    photoURL: "",
-    errorMessage: "",
+    uid: null,
+    displayName: null,
+    email: null,
+    photoURL: null,
+    errorMessage: null,
   },
   isAuthenticated: false,
 };

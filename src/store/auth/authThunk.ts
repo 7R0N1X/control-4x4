@@ -3,6 +3,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import { setAuthenticated, setUser } from "./authSlice";
 import { AppDispatch } from "@store/store";
@@ -40,6 +42,20 @@ export const signInWithEmailAndPasswordThunk = (
         userEmail,
         userPassword,
       );
+      const { uid, displayName, email, photoURL } = userCredential.user;
+      dispatch(setUser({ uid, displayName, email, photoURL }));
+      dispatch(setAuthenticated(true));
+    } catch (error) {
+      error instanceof Error && dispatch(setUser(error.message));
+    }
+  };
+};
+
+export const signInWithGoogleThunk = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, provider);
       const { uid, displayName, email, photoURL } = userCredential.user;
       dispatch(setUser({ uid, displayName, email, photoURL }));
       dispatch(setAuthenticated(true));

@@ -4,15 +4,32 @@ import { FormLink } from "@components/FormLink/FormLink";
 import { FormInput } from "@components/FormInput/FormInput";
 import { AuthLayout } from "@layouts/AuthLayout/AuthLayout";
 import { LockIcon, Mail } from "lucide-react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@store/store";
+import { signInWithEmailAndPasswordThunk } from "@store/auth/authThunk";
+
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
 export const LoginPage = () => {
+  const { register, handleSubmit, reset } = useForm<LoginForm>();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onSubmit: SubmitHandler<LoginForm> = (data) => {
+    const { email, password } = data;
+    dispatch(signInWithEmailAndPasswordThunk(email, password));
+    reset();
+  };
   return (
     <AuthLayout
       title="Ingreso a plataforma"
       description="Ingresa tus credenciales para continuar"
     >
       <form
-        action=""
+        onSubmit={handleSubmit(onSubmit)}
         className="mt-8 w-full max-w-[450px] space-y-4 rounded-lg p-6 ring shadow-sm ring-[#9394A5]/20"
       >
         <div className="flex flex-col gap-2">
@@ -22,6 +39,7 @@ export const LoginPage = () => {
             type="email"
             placeholder="Correo Electrónico"
             icon={Mail}
+            {...register("email")}
           />
         </div>
 
@@ -32,6 +50,7 @@ export const LoginPage = () => {
             type="password"
             placeholder="Contraseña"
             icon={LockIcon}
+            {...register("password")}
           />
         </div>
 

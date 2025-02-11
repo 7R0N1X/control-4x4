@@ -30,6 +30,7 @@
       "@pages/*": ["src/pages/*"],
       "@sections/*": ["src/sections/*"],
       "@store/*": ["src/store/*"],
+      "@/firebase/*": ["src/firebase/*"],
     }
   },
   "include": ["src"]

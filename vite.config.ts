@@ -14,6 +14,7 @@ export default defineConfig({
       "@pages": `${path.resolve(__dirname, "src/pages")}`,
       "@sections": `${path.resolve(__dirname, "src/sections")}`,
       "@store": `${path.resolve(__dirname, "src/store")}`,
+      "@/firebase": `${path.resolve(__dirname, "src/firebase")}`,
     },
   },
 });

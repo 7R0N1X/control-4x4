@@ -88,7 +88,7 @@ export const RegisterPage = () => {
 
         <FormLink
           variant="center"
-          href="/login"
+          href="/auth/login"
           text="¿Ya tienes una cuenta? Inicia sesión"
         />
       </div>

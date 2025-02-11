@@ -75,7 +75,7 @@ export const LoginPage = () => {
 
         <FormLink
           variant="center"
-          href="/register"
+          href="/auth/register"
           text="¿No tienes una cuenta? Regístrate"
         />
       </div>

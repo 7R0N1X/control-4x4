@@ -13,6 +13,7 @@
     "@fontsource-variable/geist": "^5.0.1",
     "@reduxjs/toolkit": "^2.5.1",
     "@tailwindcss/vite": "^4.0.4",
+    "classnames": "^2.5.1",
     "firebase": "^11.3.0",
     "lucide-react": "^0.474.0",
     "react": "^19.0.0",

@@ -1,8 +1,8 @@
 import { Table } from "@components/Table/Table";
-import { TableBody } from "@components/TableBody/TableBody";
-import { TableCell } from "@components/TableCell/TableCell";
-import { TableHead } from "@components/TableHead/TableHead";
-import { TableRow } from "@components/TableRow/TableRow";
+import { TableBody } from "@components/Table/TableBody";
+import { TableCell } from "@components/Table/TableCell";
+import { TableHead } from "@components/Table/TableHead";
+import { TableRow } from "@components/Table/TableRow";
 
 export const PurchaseTable = () => {
   return (

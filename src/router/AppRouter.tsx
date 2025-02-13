@@ -13,7 +13,11 @@ export const AppRouter = () => {
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
 
   if (isLoading) {
-    return <BeatLoader color="#d4af37" />;
+    return (
+      <div className="flex h-[100dvh] w-full items-center justify-center">
+        <BeatLoader color="#D4AF37" />
+      </div>
+    );
   }
 
   return (

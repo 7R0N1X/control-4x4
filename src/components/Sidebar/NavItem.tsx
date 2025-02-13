@@ -1,27 +1,35 @@
 import { ChevronRight } from "lucide-react";
+import { NavLink } from "react-router-dom";
 import React from "react";
-import { Link } from "react-router-dom";
 
 interface NavItemProps {
   text: string;
   icon: React.ElementType;
   path: string;
-  isActive?: boolean;
 }
 
-export const NavItem = ({ text, icon, path, isActive }: NavItemProps) => {
+export const NavItem = ({ text, icon, path }: NavItemProps) => {
   return (
-    <Link
+    <NavLink
       to={path}
-      className={`flex w-full items-center justify-between rounded-lg px-3 py-2 ${isActive && "bg-[#d4af371a]"} group font-medium text-[#52525B] transition-colors hover:bg-[#FAFAFA]`}
+      end={path === "/dashboard"}
+      className={({ isActive }) =>
+        `flex w-full items-center justify-between rounded-lg px-3 py-2 ${
+          isActive ? "bg-[#d4af371a]" : "hover:bg-[#FAFAFA]"
+        } group font-medium text-[#52525B] transition-colors`
+      }
     >
-      <div
-        className={`flex items-center gap-3 ${isActive && "font-medium text-[#d4af37]"} group-hover:text-[#18181B]`}
-      >
-        {React.createElement(icon, { className: "size-5" })}
-        <span className="text-sm">{text}</span>
-      </div>
-      {isActive && <ChevronRight size={20} className="text-[#d4af37]" />}
-    </Link>
+      {({ isActive }) => (
+        <>
+          <div
+            className={`flex items-center gap-3 ${isActive ? "font-medium text-[#d4af37]" : ""} ${!isActive && "group-hover:text-[#18181B]"}`}
+          >
+            {React.createElement(icon, { className: "size-5" })}
+            <span className="text-sm">{text}</span>
+          </div>
+          {isActive && <ChevronRight size={20} className="text-[#d4af37]" />}
+        </>
+      )}
+    </NavLink>
   );
 };

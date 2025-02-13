@@ -1,4 +1,4 @@
-import { NavItem } from "@components/NavItem/NavItem";
+import { NavItem } from "@components/Sidebar/NavItem";
 import { navLinks } from "./navLinks";
 
 export const SidebarNavigation = () => {

@@ -11,6 +11,7 @@ export interface AuthData {
 
 export interface AuthState {
   auth: AuthData;
+  isLoading: boolean;
   isAuthenticated: boolean;
 }
 
@@ -22,6 +23,7 @@ const initialState: AuthState = {
     photoURL: null,
     errorMessage: null,
   },
+  isLoading: false,
   isAuthenticated: false,
 };
 
@@ -43,8 +45,13 @@ export const authSlice = createSlice({
     setAuthenticated: (state, action: PayloadAction<boolean>) => {
       state.isAuthenticated = action.payload;
     },
+
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
-export const { setLogIn, setLogOut, setAuthenticated } = authSlice.actions;
+export const { setLogIn, setLogOut, setAuthenticated, setLoading } =
+  authSlice.actions;
 export default authSlice.reducer;

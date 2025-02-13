@@ -1,9 +1,9 @@
 import { AppDispatch, RootState } from "@store/store";
-import { Avatar } from "@components/Avatar/Avatar";
+import { Avatar } from "@components/Sidebar/Avatar";
 import { Logo } from "@components/Logo/Logo";
 import { logOut } from "@store/auth/authThunk";
-import { SidebarFooter } from "@components/SidebarFooter/SidebarFooter";
-import { SidebarNavigation } from "@components/SidebarNavigation/SidebarNavigation";
+import { SidebarFooter } from "@components/Sidebar/SidebarFooter";
+import { SidebarNavigation } from "@components/Sidebar/SidebarNavigation/SidebarNavigation";
 import { useDispatch, useSelector } from "react-redux";
 
 interface SidebarProps {

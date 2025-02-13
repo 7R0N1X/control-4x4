@@ -12,7 +12,6 @@ export const SidebarNavigation = () => {
               icon={navLink.icon}
               text={navLink.text}
               path={navLink.path}
-              isActive={false}
             />
           );
         })}

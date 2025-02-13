@@ -5,9 +5,10 @@ export const SidebarNavigation = () => {
   return (
     <nav className="p-4">
       <ul className="space-y-[10px]">
-        {navLinks.map((navLink) => {
+        {navLinks.map((navLink, index) => {
           return (
             <NavItem
+              key={index}
               icon={navLink.icon}
               text={navLink.text}
               path={navLink.path}

@@ -1,7 +1,7 @@
-import { FormButton } from "@components/FormButton/FormButton";
-import { FormLabel } from "@components/FormLabel/FormLabel";
-import { FormLink } from "@components/FormLink/FormLink";
-import { FormInput } from "@components/FormInput/FormInput";
+import { FormButton } from "@components/Form/FormButton";
+import { FormLabel } from "@components/Form/FormLabel";
+import { FormLink } from "@components/Form/FormLink";
+import { FormInput } from "@components/Form/FormInput/FormInput";
 import { AuthLayout } from "@layouts/AuthLayout/AuthLayout";
 import { LockIcon, Mail } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";

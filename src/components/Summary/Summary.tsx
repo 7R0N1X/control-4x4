@@ -1,4 +1,4 @@
-import { SummaryCard } from "@components/SummaryCard/SummaryCard";
+import { SummaryCard } from "@components/Summary/SummaryCard";
 import { CoinsIcon, Package, ShoppingCart, TrendingUp } from "lucide-react";
 
 export const Summary = () => {

@@ -1,6 +1,6 @@
-import { FormButton } from "@components/FormButton/FormButton";
-import { FormInput } from "@components/FormInput/FormInput";
-import { FormLabel } from "@components/FormLabel/FormLabel";
+import { FormButton } from "@components/Form/FormButton";
+import { FormInput } from "@components/Form/FormInput/FormInput";
+import { FormLabel } from "@components/Form/FormLabel";
 import { Barcode, Calendar, DollarSign, Store } from "lucide-react";
 
 export const PurchaseForm = () => {

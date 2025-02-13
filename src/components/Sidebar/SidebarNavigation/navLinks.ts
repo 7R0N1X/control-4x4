@@ -3,12 +3,12 @@ import { LayoutDashboard, Settings } from "lucide-react";
 export const navLinks = [
   {
     text: "Dashboard",
-    path: "/",
+    path: "/dashboard",
     icon: LayoutDashboard,
   },
   {
     text: "Configuración",
-    path: "/",
+    path: "/dashboard/configuration",
     icon: Settings,
   },
 ];

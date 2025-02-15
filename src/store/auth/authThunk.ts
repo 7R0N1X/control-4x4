@@ -54,7 +54,9 @@ export const signInWithEmailAndPasswordThunk = (
 export const signInWithGoogleThunk = () => {
   return async (dispatch: AppDispatch) => {
     try {
-      const provider = new GoogleAuthProvider();
+      const provider = new GoogleAuthProvider().setCustomParameters({
+        prompt: "select_account",
+      });
       const userCredential = await signInWithPopup(auth, provider);
       const { uid, displayName, email, photoURL } = userCredential.user;
       dispatch(setLogIn({ uid, displayName, email, photoURL }));

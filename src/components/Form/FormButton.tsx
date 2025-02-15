@@ -8,7 +8,7 @@ interface FormButtonProps {
 
 export const FormButton = ({ type, text, onClick }: FormButtonProps) => {
   return type === "internal" ? (
-    <button className="flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-md bg-[#3C3C3B] px-4 py-2 text-base font-medium text-[#D4AF37] transition-colors duration-300 hover:bg-[#242424]">
+    <button className="flex max-h-10 w-full cursor-pointer items-center justify-center gap-2.5 rounded-md bg-[#3C3C3B] px-4 py-2 text-base font-medium text-[#D4AF37] transition-colors duration-300 hover:bg-[#242424]">
       {text}
     </button>
   ) : (

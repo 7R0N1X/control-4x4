@@ -1,7 +1,7 @@
 import { AppDispatch, RootState } from "@store/store";
 import { collection, addDoc, getDocs } from "firebase/firestore/lite";
 import { db } from "@/firebase/config";
-import { loadPurchases, setPurchase } from "./userSlice";
+import { loadPurchases, PurchaseData, setPurchase } from "./userSlice";
 
 export const addNewPurchase = (data: any) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
@@ -26,11 +26,16 @@ export const getPurchases = () => {
       const purchasesRef = collection(db, `users/${uid}/purchases`);
       const querySnapshot = await getDocs(purchasesRef);
 
-      const purchases: any[] = [];
-      querySnapshot.forEach((docSnap: any) => {
-        const _data = docSnap.data();
-        const { data } = _data;
-        purchases.push({ ...data, id: docSnap.id });
+      const purchases: PurchaseData[] = querySnapshot.docs.map((docSnap) => {
+        const data = docSnap.data();
+
+        return {
+          id: docSnap.id,
+          date: data.date ? new Date(data.date).toLocaleDateString() : "",
+          store: data.store || "",
+          trackingNumber: data.trackingNumber || "",
+          amount: data.amount || 0,
+        };
       });
 
       dispatch(loadPurchases(purchases));

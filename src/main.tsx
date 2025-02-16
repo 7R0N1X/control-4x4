@@ -15,7 +15,7 @@ createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <BrowserRouter>
         <AppRouter />
-        <ToastContainer limit={3} />
+        <ToastContainer limit={3} position="bottom-right" />
       </BrowserRouter>
     </Provider>
   </StrictMode>,

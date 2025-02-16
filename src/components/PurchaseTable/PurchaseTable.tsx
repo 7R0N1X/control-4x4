@@ -3,8 +3,11 @@ import { TableBody } from "@components/Table/TableBody";
 import { TableCell } from "@components/Table/TableCell";
 import { TableHead } from "@components/Table/TableHead";
 import { TableRow } from "@components/Table/TableRow";
+import { RootState } from "@store/store";
+import { useSelector } from "react-redux";
 
 export const PurchaseTable = () => {
+  const purchases = useSelector((statate: RootState) => statate.user.purchases);
   return (
     <div className="w-full rounded-lg bg-white p-6 ring shadow-sm ring-[#E4E4E7]">
       <h2 className="mb-4 text-lg font-semibold">Historial de Compras</h2>
@@ -24,24 +27,18 @@ export const PurchaseTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell type="body">2024-01-24</TableCell>
-              <TableCell type="body">Amazon</TableCell>
-              <TableCell type="body">1Z999AA1234567890</TableCell>
-              <TableCell type="body" textPosition="text-right">
-                $150.00
-              </TableCell>
-              <TableCell type="action"></TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell type="body">2024-01-23</TableCell>
-              <TableCell type="body">eBay</TableCell>
-              <TableCell type="body">9405511298370123456781</TableCell>
-              <TableCell type="body" textPosition="text-right">
-                $150.00
-              </TableCell>
-              <TableCell type="action"></TableCell>
-            </TableRow>
+            {purchases &&
+              purchases.map((purchase, index) => (
+                <TableRow key={index}>
+                  <TableCell type="body">{String(purchase.date)}</TableCell>
+                  <TableCell type="body">{purchase.store}</TableCell>
+                  <TableCell type="body">{purchase.trackingNumber}</TableCell>
+                  <TableCell type="body" textPosition="text-right">
+                    ${purchase.amount}
+                  </TableCell>
+                  <TableCell type="action"></TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </div>

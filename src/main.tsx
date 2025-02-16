@@ -6,6 +6,7 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "@store/store";
 import { StrictMode } from "react";
+import { ToastContainer } from "react-toastify";
 
 authListener(store.dispatch);
 
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <BrowserRouter>
         <AppRouter />
+        <ToastContainer limit={3} />
       </BrowserRouter>
     </Provider>
   </StrictMode>,

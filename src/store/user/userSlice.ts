@@ -16,11 +16,15 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    loadPurchases: (state, action: PayloadAction<PurchaseData[]>) => {
+      state.purchases = action.payload;
+    },
+
     setPurchase: (state, action: PayloadAction<PurchaseData>) => {
       state.purchases.push(action.payload);
     },
   },
 });
 
-export const { setPurchase } = userSlice.actions;
+export const { loadPurchases, setPurchase } = userSlice.actions;
 export default userSlice.reducer;

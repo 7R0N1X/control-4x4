@@ -1,28 +1,32 @@
+import { AppDispatch } from "@store/store";
 import { AuthLayout } from "@layouts/AuthLayout/AuthLayout";
+import { createUserWithEmailAndPasswordThunk, signInWithGoogleThunk } from "@store/auth/authThunk";
 import { FormButton } from "@components/Form/FormButton";
 import { FormInput } from "@components/Form/FormInput/FormInput";
 import { FormLabel } from "@components/Form/FormLabel";
 import { FormLink } from "@components/Form/FormLink";
 import { LockIcon, Mail, User } from "lucide-react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  createUserWithEmailAndPasswordThunk,
-  signInWithGoogleThunk,
-} from "@store/auth/authThunk";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "@store/store";
+import { useEffect } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 
-type FormData = {
+type RegisterForm = {
   userName: string;
   email: string;
   password: string;
 };
 
 export const RegisterPage = () => {
-  const { register, handleSubmit, reset } = useForm<FormData>();
+  
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<RegisterForm>();
+
   const dispatch = useDispatch<AppDispatch>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit: SubmitHandler<RegisterForm> = (data) => {
+    if (!data.userName || !data.email || !data.password) {
+      return;
+    }
     const { userName, email, password } = data;
     dispatch(createUserWithEmailAndPasswordThunk(userName, email, password));
     reset();
@@ -32,11 +36,14 @@ export const RegisterPage = () => {
     dispatch(signInWithGoogleThunk());
   };
 
+  useEffect(() => {
+    if (errors.email || errors.password || errors.userName) {
+      toast.error("Por favor, completa todos los campos requeridos.");
+    }
+  }, [errors.email, errors.password, errors.userName]);
+
   return (
-    <AuthLayout
-      title="Crear cuenta"
-      description="Ingresa tus datos para registrarte"
-    >
+    <AuthLayout title="Crear cuenta" description="Ingresa tus datos para registrarte">
       <div className="mt-8 w-full max-w-[450px] space-y-4 rounded-lg p-6 ring shadow-sm ring-[#9394A5]/20">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="flex flex-col gap-2">
@@ -46,7 +53,8 @@ export const RegisterPage = () => {
               type="text"
               placeholder="Usuario"
               icon={User}
-              {...register("userName")}
+              {...register("userName", { required: true })}
+              aria-invalid={!!errors.userName}
             />
           </div>
 
@@ -57,7 +65,8 @@ export const RegisterPage = () => {
               type="email"
               placeholder="Correo Electrónico"
               icon={Mail}
-              {...register("email")}
+              {...register("email", { required: true })}
+              aria-invalid={!!errors.email}
             />
           </div>
 
@@ -68,7 +77,8 @@ export const RegisterPage = () => {
               type="password"
               placeholder="Contraseña"
               icon={LockIcon}
-              {...register("password")}
+              {...register("password", { required: true })}
+              aria-invalid={!!errors.password}
             />
           </div>
 

@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface PurchaseData {
-  date: Date;
+export interface PurchaseData {
+  id: string;
+  date: string;
   store: string;
   trackingNumber: string;
   amount: number;

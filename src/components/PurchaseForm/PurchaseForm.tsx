@@ -1,19 +1,51 @@
+import { addNewPurchase } from "@store/user/userThunk";
+import { AppDispatch } from "@store/store";
 import { Barcode, Calendar, DollarSign, Store } from "lucide-react";
 import { FormButton } from "@components/Form/FormButton";
 import { FormInput } from "@components/Form/FormInput/FormInput";
 import { FormLabel } from "@components/Form/FormLabel";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+
+type PurchaseFormData = {
+  date: Date;
+  store: string;
+  trackingNumber: string;
+  amount: number;
+};
 
 export const PurchaseForm = () => {
+  
+  const { register, handleSubmit, reset } = useForm<PurchaseFormData>();
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onSubmit = async (data: PurchaseFormData) => {
+    try {
+      await dispatch(addNewPurchase(data));
+      toast.success("Compra agregada exitosamente", {
+        position: "bottom-right",
+      });
+      reset();
+    } catch (error) {
+      toast.error("Error al agregar la compra", {
+        position: "bottom-right",
+      });
+    }
+  };
+
   return (
     <div className="rounded-lg bg-white p-6 ring shadow-sm ring-[#E4E4E7]">
       <h2 className="mb-4 text-lg font-semibold">Nueva Compra</h2>
-      <form action="" className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <div className="flex items-end justify-between gap-4 max-lg:flex-col">
           <div className="flex w-full flex-col gap-2.5">
             <FormLabel htmlFor="date" text="Fecha" />
             <FormInput
               type="date"
               id="date"
+              {...register("date", { required: true })}
               placeholder="Fecha"
               icon={Calendar}
             />
@@ -23,6 +55,7 @@ export const PurchaseForm = () => {
             <FormInput
               type="text"
               id="store"
+              {...register("store", { required: true })}
               placeholder="Tienda"
               icon={Store}
             />
@@ -32,6 +65,9 @@ export const PurchaseForm = () => {
             <FormInput
               type="text"
               id="tracking-number"
+              {...register("trackingNumber", {
+                required: true,
+              })}
               placeholder="Tracking"
               icon={Barcode}
             />
@@ -41,6 +77,7 @@ export const PurchaseForm = () => {
             <FormInput
               id="amount"
               type="number"
+              {...register("amount", { required: true, valueAsNumber: true })}
               placeholder="Valor total"
               icon={DollarSign}
             />

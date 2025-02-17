@@ -22,7 +22,8 @@ export const Avatar = () => {
   };
 
   return (
-    <button
+    <div
+      role="button"
       className="flex cursor-pointer items-center gap-2.5"
       onClick={handleOpen}
     >
@@ -35,8 +36,10 @@ export const Avatar = () => {
       </picture>
 
       <div className="relative flex flex-1 gap-2.5">
-        <span className="font-medium">{displayName}</span>
-        <ChevronDown />
+        <span className="text-sm font-medium select-none">{displayName}</span>
+        <ChevronDown
+          className={`${isOpen ? "rotate-180" : ""} transition-all`}
+        />
 
         {isOpen && (
           <div className="absolute top-10 right-0 min-w-[max-content] rounded-md bg-white p-1 ring shadow-md ring-[#E4E4E7]">
@@ -49,6 +52,6 @@ export const Avatar = () => {
           </div>
         )}
       </div>
-    </button>
+    </div>
   );
 };

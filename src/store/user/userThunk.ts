@@ -1,5 +1,5 @@
 import { AppDispatch, RootState } from "@store/store";
-import { collection, addDoc, getDocs, doc, setDoc } from "firebase/firestore/lite";
+import { collection, addDoc, getDocs, doc, setDoc, getDoc } from "firebase/firestore/lite";
 import { db } from "@/firebase/config";
 import { loadPurchases, PurchaseData, setAnnualQuota, setPurchase } from "./userSlice";
 
@@ -54,6 +54,19 @@ export const setAnnualQuotaThunk = (amount: number) => {
         { merge: true },
       );
       dispatch(setAnnualQuota(amount));
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
+export const getAnnualQuotaThunk = () => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    try {
+      const { uid } = getState().auth.auth;
+      const docRef = doc(db, "users", `${uid}`);
+      const data = (await getDoc(docRef)).data();
+      data && dispatch(setAnnualQuota(data.annualQuota));
     } catch (error) {
       throw error;
     }

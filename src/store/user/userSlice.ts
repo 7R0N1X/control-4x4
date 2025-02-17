@@ -11,6 +11,7 @@ export interface PurchaseData {
 
 const initialState = {
   purchases: [] as PurchaseData[],
+  annualQuota: 0,
 };
 
 export const userSlice = createSlice({
@@ -24,8 +25,12 @@ export const userSlice = createSlice({
     setPurchase: (state, action: PayloadAction<PurchaseData>) => {
       state.purchases.push(action.payload);
     },
+
+    setAnnualQuota: (state, action: PayloadAction<number>) => {
+      state.annualQuota = action.payload;
+    },
   },
 });
 
-export const { loadPurchases, setPurchase } = userSlice.actions;
+export const { loadPurchases, setPurchase, setAnnualQuota } = userSlice.actions;
 export default userSlice.reducer;

@@ -9,15 +9,10 @@ interface SummaryCardProps {
     | "Límite establecido"
     | "Disponible para compras"
     | "Valor acumulado";
-  amount: number;
+  amount: string;
 }
 
-export const SummaryCard = ({
-  icon,
-  title,
-  subtitle,
-  amount,
-}: SummaryCardProps) => {
+export const SummaryCard = ({ icon, title, subtitle, amount }: SummaryCardProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEdit = () => {
@@ -26,9 +21,7 @@ export const SummaryCard = ({
 
   return (
     <>
-      <div
-        className={`text group relative w-full rounded-lg p-6 text-white ring shadow-sm ring-[#E4E4E7] ${title === "Cupo Anual" ? "bg-gradient-to-br from-[#D4AF37] to-[#b99930] text-white" : ""} ${title === "Saldo Disponible" ? "bg-gradient-to-br from-emerald-600 to-emerald-700" : ""} ${title === "Total Importado" ? "bg-gradient-to-br from-zinc-600 to-zinc-800" : ""}`}
-      >
+      <div className={`text group relative w-full rounded-lg p-6 text-white ring shadow-sm ring-[#E4E4E7] ${title === "Cupo Anual" ? "bg-gradient-to-br from-[#D4AF37] to-[#b99930] text-white" : ""} ${title === "Saldo Disponible" ? "bg-gradient-to-br from-emerald-600 to-emerald-700" : ""} ${title === "Total Importado" ? "bg-gradient-to-br from-zinc-600 to-zinc-800" : ""}`}>
         {title === "Cupo Anual" && (
           <button
             className="absolute right-6 bottom-6 flex size-8 cursor-pointer items-center justify-center rounded-md bg-zinc-800/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100"

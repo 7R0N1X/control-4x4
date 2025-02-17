@@ -17,21 +17,17 @@ type PurchaseFormData = {
 
 export const PurchaseForm = () => {
   
-  const { register, handleSubmit, reset } = useForm<PurchaseFormData>();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<PurchaseFormData>();
 
   const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit = async (data: PurchaseFormData) => {
     try {
       await dispatch(addNewPurchase(data));
-      toast.success("Compra agregada exitosamente", {
-        position: "bottom-right",
-      });
+      toast.success("Compra agregada exitosamente")
       reset();
     } catch (error) {
-      toast.error("Error al agregar la compra", {
-        position: "bottom-right",
-      });
+      toast.error("Error al agregar la compra")
     }
   };
 
@@ -46,6 +42,7 @@ export const PurchaseForm = () => {
               type="date"
               id="date"
               {...register("date", { required: true })}
+              aria-invalid={!!errors.date}
               placeholder="Fecha"
               icon={Calendar}
             />
@@ -56,6 +53,7 @@ export const PurchaseForm = () => {
               type="text"
               id="store"
               {...register("store", { required: true })}
+              aria-invalid={!!errors.store}
               placeholder="Tienda"
               icon={Store}
             />
@@ -65,9 +63,8 @@ export const PurchaseForm = () => {
             <FormInput
               type="text"
               id="tracking-number"
-              {...register("trackingNumber", {
-                required: true,
-              })}
+              {...register("trackingNumber", { required: true })}
+              aria-invalid={!!errors.trackingNumber}
               placeholder="Tracking"
               icon={Barcode}
             />
@@ -78,6 +75,7 @@ export const PurchaseForm = () => {
               id="amount"
               type="number"
               {...register("amount", { required: true, valueAsNumber: true })}
+              aria-invalid={!!errors.amount}
               placeholder="Valor total"
               icon={DollarSign}
             />

@@ -13,6 +13,7 @@
     "@fontsource-variable/geist": "^5.0.1",
     "@reduxjs/toolkit": "^2.5.1",
     "@tailwindcss/vite": "^4.0.4",
+    "big.js": "^6.2.2",
     "classnames": "^2.5.1",
     "firebase": "^11.3.0",
     "lucide-react": "^0.474.0",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@types/big.js": "^6.2.2",
     "@types/node": "^22.13.1",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",

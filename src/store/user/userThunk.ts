@@ -1,7 +1,7 @@
 import { AppDispatch, RootState } from "@store/store";
-import { collection, addDoc, getDocs } from "firebase/firestore/lite";
+import { collection, addDoc, getDocs, doc, setDoc } from "firebase/firestore/lite";
 import { db } from "@/firebase/config";
-import { loadPurchases, PurchaseData, setPurchase } from "./userSlice";
+import { loadPurchases, PurchaseData, setAnnualQuota, setPurchase } from "./userSlice";
 
 export const addNewPurchase = (data: any) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
@@ -39,6 +39,21 @@ export const getPurchases = () => {
       });
 
       dispatch(loadPurchases(purchases));
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
+export const setAnnualQuotaThunk = (amount: number) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    try {
+      const { uid } = getState().auth.auth;
+      setDoc(doc(db, "users", `${uid}`),
+        { annualQuota: amount },
+        { merge: true },
+      );
+      dispatch(setAnnualQuota(amount));
     } catch (error) {
       throw error;
     }

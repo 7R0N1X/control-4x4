@@ -45,11 +45,11 @@ export const getPurchases = () => {
   };
 };
 
-export const deletePurchaseThunk = (id = "9ZFYIO8fJx7fhQjaD3LE") => {
+export const deletePurchaseThunk = (purchaseId: string) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {
       const { uid } = getState().auth.auth;
-      const purchaseRef = doc(db, `users/${uid}/purchases/${id}`);
+      const purchaseRef = doc(db, `users/${uid}/purchases/${purchaseId}`);
       await deleteDoc(purchaseRef);
       dispatch(getPurchases());
     } catch (error) {

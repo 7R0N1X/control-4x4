@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Big from "big.js";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface PurchaseData {
@@ -27,7 +28,8 @@ export const userSlice = createSlice({
     },
 
     setAnnualQuota: (state, action: PayloadAction<number>) => {
-      state.annualQuota = action.payload;
+      const annualQuota = new Big(action.payload);
+      state.annualQuota = Number(annualQuota.toFixed(2));
     },
   },
 });

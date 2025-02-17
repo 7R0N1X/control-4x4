@@ -34,7 +34,7 @@ export const PurchaseTable = () => {
                   <TableCell type="body">{purchase.store}</TableCell>
                   <TableCell type="body">{purchase.trackingNumber}</TableCell>
                   <TableCell type="body" textPosition="text-right">
-                    ${purchase.amount}
+                    ${purchase.amount.toFixed(2)}
                   </TableCell>
                   <TableCell type="action"></TableCell>
                 </TableRow>

@@ -7,6 +7,7 @@ import { TableHead } from "@components/Table/TableHead";
 import { TableRow } from "@components/Table/TableRow";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import { setPurchaseEdit } from "@store/user/userSlice";
 
 export const PurchaseTable = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,6 +22,13 @@ export const PurchaseTable = () => {
       } catch (error) {
         toast.error("Error al eliminar compra");
       }
+    }
+  }
+
+  const onUpdate = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const purchaseId = e.currentTarget.parentElement?.parentElement?.parentElement?.getAttribute("data-id");
+    if (purchaseId) {
+      dispatch(setPurchaseEdit(purchaseId))
     }
   }
   
@@ -52,7 +60,7 @@ export const PurchaseTable = () => {
                   <TableCell type="body" textPosition="text-right">
                     ${purchase.amount.toFixed(2)}
                   </TableCell>
-                  <TableCell type="action" onDelete={onDelete}></TableCell>
+                  <TableCell type="action" onDelete={onDelete} onUpdate={onUpdate}></TableCell>
                 </TableRow>
               ))}
           </TableBody>

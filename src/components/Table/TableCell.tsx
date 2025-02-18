@@ -5,9 +5,10 @@ interface TableCellProps {
   type: "head" | "body" | "action";
   textPosition?: string;
   onDelete?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onUpdate?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-export const TableCell = ({ children, type, textPosition, onDelete }: TableCellProps) => {
+export const TableCell = ({ children, type, textPosition, onDelete, onUpdate }: TableCellProps) => {
   if (type === "head") {
     return (
       <th className={`border-b border-[#E4E4E7] px-4 py-2 ${textPosition ? textPosition : "text-start"} text-sm font-medium whitespace-nowrap text-[#52525B] max-sm:w-full`}>
@@ -31,6 +32,7 @@ export const TableCell = ({ children, type, textPosition, onDelete }: TableCellP
           <button
             className="flex size-8 cursor-pointer items-center justify-center rounded-md ring ring-[#E4E4E7] transition-all duration-300 hover:bg-[#d4af371a] hover:ring-[#d4af37]"
             title="Editar"
+            onClick={onUpdate}
           >
             <Pen size={16} />
           </button>

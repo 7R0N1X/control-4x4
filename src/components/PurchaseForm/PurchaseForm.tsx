@@ -1,33 +1,53 @@
-import { addNewPurchase } from "@store/user/userThunk";
-import { AppDispatch } from "@store/store";
+import { createNewPurchase, updatePurchaseThunk } from "@store/user/userThunk";
+import { AppDispatch, RootState } from "@store/store";
 import { Barcode, Calendar, DollarSign, Store } from "lucide-react";
 import { FormButton } from "@components/Form/FormButton";
 import { FormInput } from "@components/Form/FormInput/FormInput";
 import { FormLabel } from "@components/Form/FormLabel";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 type PurchaseFormData = {
-  date: Date;
+  id: string;
+  date: string;
   store: string;
   trackingNumber: string;
   amount: number;
 };
 
 export const PurchaseForm = () => {
-  
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<PurchaseFormData>();
-
   const dispatch = useDispatch<AppDispatch>();
+  const { purchaseToEdit, isEditing } = useSelector((state: RootState) => state.user);
+  const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm<PurchaseFormData>();
+
+  useEffect(() => {
+    if (purchaseToEdit.length > 0) {
+      const purchase = purchaseToEdit[0];
+      const [day, month, year] = purchase.date.split("/");
+      const formattedDate = new Date(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`).toISOString().split("T")[0];
+
+      setValue("date", formattedDate);
+      setValue("store", purchase.store);
+      setValue("trackingNumber", purchase.trackingNumber);
+      setValue("amount", purchase.amount);
+    }
+  }, [purchaseToEdit]);
 
   const onSubmit = async (data: PurchaseFormData) => {
     try {
-      await dispatch(addNewPurchase(data));
-      toast.success("Compra agregada exitosamente")
-      reset();
+      if (isEditing) {
+        await dispatch(updatePurchaseThunk(purchaseToEdit[0].id, data));
+        toast.success("Compra editada exitosamente");
+        reset();
+      } else {
+        await dispatch(createNewPurchase(data));
+        toast.success("Compra agregada exitosamente");
+        reset();
+      }
     } catch (error) {
-      toast.error("Error al agregar la compra")
+      toast.error("Error al agregar la compra");
     }
   };
 
@@ -80,7 +100,7 @@ export const PurchaseForm = () => {
               icon={DollarSign}
             />
           </div>
-          <FormButton type="internal" text="Agregar compra" />
+          <FormButton type="internal" text={`${isEditing ? 'Guardar cambios' : 'Agregar compra'}`} />
         </div>
       </form>
     </div>

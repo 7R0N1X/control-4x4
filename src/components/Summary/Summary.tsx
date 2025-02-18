@@ -17,8 +17,8 @@ export const Summary = () => {
 
   useEffect(() => {
     dispatch(setTotalImported(purchases));
-    dispatch(setAvailableBalance())
-  }, [purchases])
+    dispatch(setAvailableBalance());
+  }, [purchases]);
 
   return (
     <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">

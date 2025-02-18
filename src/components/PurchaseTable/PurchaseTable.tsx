@@ -52,7 +52,7 @@ export const PurchaseTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {purchases &&
+            {purchases.length > 0 ?
               purchases.map((purchase) => (
                 <TableRow key={purchase.id} dataId={purchase.id}>
                   <TableCell type="body">{String(purchase.date)}</TableCell>
@@ -63,7 +63,7 @@ export const PurchaseTable = () => {
                   </TableCell>
                   <TableCell type="action" onDelete={onDelete} onUpdate={onUpdate}></TableCell>
                 </TableRow>
-              ))}
+              )) : (<TableRow><TableCell type="body" colSpan={5} className="text-center">No hay compras registradas</TableCell></TableRow>)}
           </TableBody>
         </Table>
       </div>

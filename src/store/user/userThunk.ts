@@ -1,28 +1,30 @@
 import { AppDispatch, RootState } from "@store/store";
-import { collection, addDoc, getDocs, doc, setDoc, getDoc, deleteDoc } from "firebase/firestore/lite";
+import { collection, addDoc, getDocs, doc, setDoc, getDoc, deleteDoc, updateDoc } from "firebase/firestore/lite";
 import { db } from "@/firebase/config";
-import { loadPurchases, PurchaseData, setAnnualQuota, setPurchase } from "./userSlice";
+import { loadPurchases, PurchaseData, setAnnualQuota, setIsEditing, setPurchase } from "./userSlice";
 
-export const addNewPurchase = (data: any) => {
+export const createNewPurchase = (data: any) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {
       const { uid } = getState().auth.auth;
-      const docRef = await addDoc(
-        collection(db, `users/${uid}/purchases`),
-        data,
-      );
+      if (!uid) return;
 
-      dispatch(setPurchase({ ...data, id: docRef.id }));
+      const docRef = await addDoc(collection(db, `users/${uid}/purchases`), data );
+      const formatedDate = new Date(data.date).toLocaleDateString();
+      dispatch(setPurchase({ ...data, date: formatedDate, id: docRef.id }));
     } catch (error) {
+      console.error(error)
       throw error;
     }
   };
 };
 
-export const getPurchases = () => {
+export const readPurchasesThunk = () => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {
       const { uid } = getState().auth.auth;
+      if (!uid) return;
+
       const purchasesRef = collection(db, `users/${uid}/purchases`);
       const querySnapshot = await getDocs(purchasesRef);
 
@@ -40,6 +42,23 @@ export const getPurchases = () => {
 
       dispatch(loadPurchases(purchases));
     } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+};
+
+export const updatePurchaseThunk = (purchaseId: string, data: PurchaseData) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    try {
+      const { uid } = getState().auth.auth;
+      const purchaseRef = doc(db, `users/${uid}/purchases/${purchaseId}`);
+      dispatch(setIsEditing(true));
+      await updateDoc(purchaseRef, { ...data });
+      dispatch(setIsEditing(false));
+      dispatch(readPurchasesThunk());
+    } catch (error) {
+      console.log(error);
       throw error;
     }
   };
@@ -51,8 +70,9 @@ export const deletePurchaseThunk = (purchaseId: string) => {
       const { uid } = getState().auth.auth;
       const purchaseRef = doc(db, `users/${uid}/purchases/${purchaseId}`);
       await deleteDoc(purchaseRef);
-      dispatch(getPurchases());
+      dispatch(readPurchasesThunk());
     } catch (error) {
+      console.error(error)
       throw error;
     }
   };

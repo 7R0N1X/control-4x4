@@ -1,5 +1,6 @@
 import { AppDispatch, RootState } from "@store/store";
 import { deletePurchaseThunk } from "@store/user/userThunk";
+import { setIsEditing, setPurchaseEdit } from "@store/user/userSlice";
 import { Table } from "@components/Table/Table";
 import { TableBody } from "@components/Table/TableBody";
 import { TableCell } from "@components/Table/TableCell";
@@ -7,7 +8,6 @@ import { TableHead } from "@components/Table/TableHead";
 import { TableRow } from "@components/Table/TableRow";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { setPurchaseEdit } from "@store/user/userSlice";
 
 export const PurchaseTable = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,10 +24,11 @@ export const PurchaseTable = () => {
       }
     }
   }
-
+  
   const onUpdate = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const purchaseId = e.currentTarget.parentElement?.parentElement?.parentElement?.getAttribute("data-id");
     if (purchaseId) {
+      dispatch(setIsEditing(true));
       dispatch(setPurchaseEdit(purchaseId))
     }
   }

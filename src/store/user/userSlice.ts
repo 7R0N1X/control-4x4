@@ -15,6 +15,8 @@ const initialState = {
   purchaseToEdit: [] as PurchaseData[],
   isEditing: false,
   annualQuota: 0,
+  availableBalance: 0,
+  totalImported: 0,
 };
 
 export const userSlice = createSlice({
@@ -41,9 +43,16 @@ export const userSlice = createSlice({
     setIsEditing: (state, action: PayloadAction<boolean>) => {
       state.isEditing = action.payload;
     },
+
+    setAvailableBalance: (state) => {
+      state.availableBalance = state.annualQuota - state.totalImported;
+    },
+
+    setTotalImported: (state, action: PayloadAction<PurchaseData[]>) => {
+      state.totalImported = action.payload.reduce((acc, purchase) => acc + purchase.amount, 0);
+    },
   },
 });
 
-export const { loadPurchases, setPurchase, setAnnualQuota, setPurchaseEdit, setIsEditing } =
-  userSlice.actions;
+export const { loadPurchases, setPurchase, setAnnualQuota, setPurchaseEdit, setIsEditing, setAvailableBalance, setTotalImported } =  userSlice.actions;
 export default userSlice.reducer;

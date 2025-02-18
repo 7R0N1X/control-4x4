@@ -12,6 +12,7 @@ export interface PurchaseData {
 
 const initialState = {
   purchases: [] as PurchaseData[],
+  purchaseToEdit: [] as PurchaseData[],
   annualQuota: 0,
 };
 
@@ -31,8 +32,12 @@ export const userSlice = createSlice({
       const annualQuota = new Big(action.payload);
       state.annualQuota = Number(annualQuota.toFixed(2));
     },
+    setPurchaseEdit: (state, action: PayloadAction<string>) => {
+      state.purchaseToEdit = state.purchases.filter((purchase) => purchase.id === action.payload);
+    },
   },
 });
 
-export const { loadPurchases, setPurchase, setAnnualQuota } = userSlice.actions;
+export const { loadPurchases, setPurchase, setAnnualQuota, setPurchaseEdit } =
+  userSlice.actions;
 export default userSlice.reducer;

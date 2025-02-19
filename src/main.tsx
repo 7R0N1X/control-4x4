@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { store } from "@store/store";
 import { StrictMode } from "react";
 import { ToastContainer } from "react-toastify";
+import "./config/aos.js"
 
 authListener(store.dispatch);
 

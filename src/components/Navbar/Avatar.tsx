@@ -3,6 +3,7 @@ import { AppDispatch, RootState } from "@store/store";
 import { ChevronDown, LogOut } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const Avatar = () => {
   const { displayName, photoURL } = useSelector(
@@ -10,9 +11,12 @@ export const Avatar = () => {
   );
 
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch(logOut());
+    dispatch(logOut()).then(() => {
+      navigate("/", { replace: true });
+    });
   };
 
   const [isOpen, setIsOpen] = useState(false);

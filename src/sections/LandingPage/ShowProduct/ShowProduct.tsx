@@ -8,7 +8,7 @@ export const ShowProduct = () => {
       description="Una interfaz intuitiva que te permite registrar y visualizar tus gastos en cuestión de segundos"
       className="py-0"
     >
-      <div className="mt-12 flex items-center justify-center w-full">
+      <div data-aos="fade-up" data-aos-duration="500" className="mt-12 flex items-center justify-center w-full">
         <img
           src={appImage}
           alt="Control 4x4"

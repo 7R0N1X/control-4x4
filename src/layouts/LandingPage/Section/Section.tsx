@@ -11,10 +11,10 @@ export const Section = ({ title, description, children, className }: SectionProp
       <div className="mx-auto max-w-screen-xl">
         {title && (
           <div className="flex flex-col items-center justify-center gap-4">
-            <h2 className="text-center text-3xl font-bold text-neutral-800">
+            <h2 data-aos="fade-up" data-aos-duration="500" className="text-center text-3xl font-bold text-neutral-800">
               {title}
             </h2>
-            <p className="text-center text-lg text-[#606271]">{description}</p>
+            <p data-aos="fade-up" data-aos-duration="500" className="text-center text-lg text-[#606271]">{description}</p>
           </div>
         )}
         {children}

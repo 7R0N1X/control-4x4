@@ -6,7 +6,7 @@ interface StepCardProps {
 
 export const StepCard = ({ step, title, description }: StepCardProps) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 w-[380px]">
+    <div data-aos="fade-up" data-aos-duration="500" className="flex flex-col items-center justify-center gap-4 w-[380px]">
       <span className="flex size-12 items-center justify-center rounded-full bg-[#F7EDCC] p-2.5 text-xl font-semibold text-[#D4AF37]">
         {step}
       </span>

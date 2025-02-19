@@ -17,6 +17,7 @@
     "big.js": "^6.2.2",
     "classnames": "^2.5.1",
     "firebase": "^11.3.0",
+    "lenis": "^1.1.20",
     "lucide-react": "^0.474.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

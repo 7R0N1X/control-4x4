@@ -1,13 +1,7 @@
-import { auth } from "@/firebase/config";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
-import { setAuthenticated, setLogIn, setLogOut } from "./authSlice";
 import { AppDispatch } from "@store/store";
+import { auth } from "@/firebase/config";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "firebase/auth";
+import { setAuthenticated, setLogIn, setLogOut } from "./authSlice";
 
 export const createUserWithEmailAndPasswordThunk = (
   userName: string,
@@ -16,13 +10,8 @@ export const createUserWithEmailAndPasswordThunk = (
 ) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        userEmail,
-        userPassword,
-      );
-      auth.currentUser &&
-        (await updateProfile(auth.currentUser, { displayName: userName }));
+      const userCredential = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
+      auth.currentUser && (await updateProfile(auth.currentUser, { displayName: userName }));
       const { uid, displayName, email, photoURL } = userCredential.user;
       dispatch(setLogIn({ uid, displayName, email, photoURL }));
     } catch (error) {
@@ -31,17 +20,10 @@ export const createUserWithEmailAndPasswordThunk = (
   };
 };
 
-export const signInWithEmailAndPasswordThunk = (
-  userEmail: string,
-  userPassword: string,
-) => {
+export const signInWithEmailAndPasswordThunk = (userEmail: string, userPassword: string) => {
   return async (dispatch: AppDispatch) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        userEmail,
-        userPassword,
-      );
+      const userCredential = await signInWithEmailAndPassword(auth, userEmail, userPassword);
       const { uid, displayName, email, photoURL } = userCredential.user;
       dispatch(setLogIn({ uid, displayName, email, photoURL }));
       dispatch(setAuthenticated(true));
@@ -54,15 +36,23 @@ export const signInWithEmailAndPasswordThunk = (
 export const signInWithGoogleThunk = () => {
   return async (dispatch: AppDispatch) => {
     try {
-      const provider = new GoogleAuthProvider().setCustomParameters({
-        prompt: "select_account",
-      });
+      const provider = new GoogleAuthProvider().setCustomParameters({prompt: "select_account"});
       const userCredential = await signInWithPopup(auth, provider);
       const { uid, displayName, email, photoURL } = userCredential.user;
       dispatch(setLogIn({ uid, displayName, email, photoURL }));
       dispatch(setAuthenticated(true));
     } catch (error) {
       error instanceof Error && dispatch(setLogIn(error.message));
+    }
+  };
+};
+
+export const resetPasswordThunk = (email: string) => {
+  return async () => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+      throw error;
     }
   };
 };

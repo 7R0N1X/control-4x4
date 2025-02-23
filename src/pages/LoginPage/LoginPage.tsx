@@ -5,11 +5,12 @@ import { FormInput } from "@components/Form/FormInput/FormInput";
 import { FormLabel } from "@components/Form/FormLabel";
 import { FormLink } from "@components/Form/FormLink";
 import { LockIcon, Mail } from "lucide-react";
-import { signInWithEmailAndPasswordThunk, signInWithGoogleThunk} from "@store/auth/authThunk";
+import { ResetPasswordModal } from "@components/ResetPasswordModal/ResetPasswordModal";
+import { signInWithEmailAndPasswordThunk, signInWithGoogleThunk } from "@store/auth/authThunk";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type LoginForm = {
   email: string;
@@ -17,22 +18,16 @@ type LoginForm = {
 };
 
 export const LoginPage = () => {
-
   const { register, handleSubmit, reset, formState: { errors } } = useForm<LoginForm>();
-
   const dispatch = useDispatch<AppDispatch>();
+  const [openModal, setOpenModal] = useState(false);
 
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
-    if (!data.email || !data.password) {
-      return;
-    }
+    if (!data.email || !data.password) return;
+
     const { email, password } = data;
     dispatch(signInWithEmailAndPasswordThunk(email, password));
     reset();
-  };
-
-  const onClick = () => {
-    dispatch(signInWithGoogleThunk());
   };
 
   useEffect(() => {
@@ -40,6 +35,14 @@ export const LoginPage = () => {
       toast.error("Por favor, completa todos los campos requeridos.");
     }
   }, [errors.email, errors.password]);
+
+  const onSignInWithGoogle = () => {
+    dispatch(signInWithGoogleThunk());
+  };
+
+  const onToggleModal = () => {
+    setOpenModal(!openModal);
+  };
 
   return (
     <AuthLayout title="Ingreso a plataforma" description="Ingresa tus credenciales para continuar" >
@@ -69,7 +72,15 @@ export const LoginPage = () => {
             />
           </div>
 
-          <FormLink variant="right" href="" text="¿Olvidaste tu contraseña?" />
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={onToggleModal}
+              className="text-sm text-[#9394A5] cursor-pointer"
+            >
+              ¿Olvidaste tu contraseña?
+            </button>
+          </div>
 
           <FormButton type="internal" text="Iniciar Sesión" />
 
@@ -80,18 +91,13 @@ export const LoginPage = () => {
           </div>
         </form>
 
-        <FormButton
-          onClick={onClick}
-          type="external"
-          text="Continuar con Google"
-        />
+        <FormButton onClick={onSignInWithGoogle} type="external" text="Continuar con Google" />
 
-        <FormLink
-          variant="center"
-          href="/auth/register"
-          text="¿No tienes una cuenta? Regístrate"
-        />
+        <FormLink variant="center" href="/auth/register" text="¿No tienes una cuenta? Regístrate" />
       </div>
+
+      {openModal && <ResetPasswordModal onClose={onToggleModal} />}
+      
     </AuthLayout>
   );
 };

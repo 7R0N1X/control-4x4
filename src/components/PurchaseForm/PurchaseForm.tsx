@@ -38,9 +38,13 @@ export const PurchaseForm = () => {
   const onSubmit = async (data: PurchaseFormData) => {
     try {
       if (isEditing) {
-        await dispatch(updatePurchaseThunk(purchaseToEdit[0].id, data));
-        toast.success("Compra editada exitosamente");
-        reset();
+        const {store, trackingNumber, amount} = purchaseToEdit[0];
+        if (data.store !== store || data.trackingNumber !== trackingNumber || data.amount !== amount) {
+          await dispatch(updatePurchaseThunk(purchaseToEdit[0].id, data));
+          toast.success("Compra editada exitosamente");
+          reset();
+        }
+        return;
       } else {
         await dispatch(createNewPurchase(data));
         toast.success("Compra agregada exitosamente");

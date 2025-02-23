@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { AnnualQuotaModal } from "@components/AnnualQuotaModal/AnnualQuotaModal";
 import { Pencil, TrendingUp } from "lucide-react";
-import { AnnualQuotaForm } from "@components/AnnualQuotaForm/AnnualQuotaForm";
+import React, { useState } from "react";
 
 interface SummaryCardProps {
   icon: React.ElementType;
@@ -42,9 +42,7 @@ export const SummaryCard = ({ icon, title, subtitle, amount }: SummaryCardProps)
         </div>
       </div>
       {isEditing && (
-        <div className="fixed top-0 left-0 z-50 h-full w-full bg-black/80">
-          <AnnualQuotaForm onClose={handleEdit} />
-        </div>
+        <AnnualQuotaModal onToggleModal={handleEdit} />
       )}
     </>
   );

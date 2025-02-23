@@ -1,9 +1,8 @@
 import { AuthRouter } from "./AuthRouter";
 import { BeatLoader } from "react-spinners";
 import { DashboardRouter } from "./DashboardRouter";
-import { LandingPage } from "@pages/LandingPage/LandingPage";
 import { RootState } from "@store/store";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const AppRouter = () => {
@@ -23,13 +22,12 @@ export const AppRouter = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
-
       {isAuthenticated ? (
         <Route path="/*" element={<DashboardRouter />} />
       ) : (
         <Route path="/auth/*" element={<AuthRouter />} />
       )}
+      <Route path="/" element={<Navigate to={"/auth/login"} />} />
     </Routes>
   );
 };

@@ -44,8 +44,13 @@ export const userSlice = createSlice({
       state.isEditing = action.payload;
     },
 
-    setAvailableBalance: (state) => {
-      state.availableBalance = state.annualQuota - state.totalImported;
+    setAvailableBalance: (state) => {     
+      const availableBalance = state.annualQuota - state.totalImported;
+      if (availableBalance < 0) {
+        state.availableBalance = 0;
+      } else {
+        state.availableBalance = availableBalance;  
+      }
     },
 
     setTotalImported: (state, action: PayloadAction<PurchaseData[]>) => {

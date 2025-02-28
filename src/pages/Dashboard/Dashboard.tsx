@@ -18,6 +18,11 @@ export const Dashboard = () => {
     return () => {
       dispatch(loadPurchases([]));
     };
+
+    window.onerror = function (message, source, lineno, colno) {
+      alert(`🚨 Error: ${message}\n📍 Archivo: ${source}:${lineno}:${colno}`);
+    };
+    
   }, []);
 
   return (

@@ -28,7 +28,7 @@ export const userSlice = createSlice({
     },
 
     setPurchase: (state, action: PayloadAction<PurchaseData>) => {
-      state.purchases.push(action.payload);
+      state.purchases.unshift(action.payload);
     },
 
     setAnnualQuota: (state, action: PayloadAction<number>) => {

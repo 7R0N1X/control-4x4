@@ -1,5 +1,5 @@
 import { AppDispatch, RootState } from "@store/store";
-import { collection, addDoc, getDocs, doc, setDoc, getDoc, deleteDoc, updateDoc } from "firebase/firestore/lite";
+import { collection, addDoc, getDocs, doc, setDoc, getDoc, deleteDoc, updateDoc, orderBy, query } from "firebase/firestore/lite";
 import { db } from "@/firebase/config";
 import { loadPurchases, PurchaseData, setAnnualQuota, setIsEditing, setPurchase } from "./userSlice";
 
@@ -26,7 +26,8 @@ export const readPurchasesThunk = () => {
       if (!uid) return;
 
       const purchasesRef = collection(db, `users/${uid}/purchases`);
-      const querySnapshot = await getDocs(purchasesRef);
+      const purchasesQuery = query(purchasesRef, orderBy("date", "desc"));
+      const querySnapshot = await getDocs(purchasesQuery);
 
       const purchases: PurchaseData[] = querySnapshot.docs.map((docSnap) => {
         const data = docSnap.data();

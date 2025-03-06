@@ -9,7 +9,7 @@ export const createNewPurchase = (data: any) => {
       const { uid } = getState().auth.auth;
       if (!uid) return;
 
-      const docRef = await addDoc(collection(db, `users/${uid}/purchases`), data );
+      const docRef = await addDoc(collection(db, `users/${uid}/purchases`), {...data, id: uid} );
       dispatch(setPurchase({ ...data, id: docRef.id }));
     } catch (error) {
       console.error(error)

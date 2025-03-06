@@ -20,7 +20,7 @@ type PurchaseFormData = {
 
 export const PurchaseForm = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { purchaseToEdit, isEditing } = useSelector((state: RootState) => state.user);
+  const { purchaseToEdit, isEditing, availableBalance } = useSelector((state: RootState) => state.user);
   const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm<PurchaseFormData>();
 
   useEffect(() => {
@@ -43,16 +43,20 @@ export const PurchaseForm = () => {
         if (data.store !== store || data.trackingNumber !== trackingNumber || data.amount !== amount) {
           await dispatch(updatePurchaseThunk(purchaseToEdit[0].id, data));
           toast.success("Compra editada exitosamente");
-          reset();
         }
         return;
       } else {
-        await dispatch(createNewPurchase(data));
-        toast.success("Compra agregada exitosamente");
-        reset();
+        if (availableBalance >= data.amount && data.amount != 0) {
+          await dispatch(createNewPurchase(data));
+          toast.success("Compra agregada exitosamente");
+          return;
+        }
+        toast.error("No cuenta con saldo disponible para esta transacción.")
       }
     } catch (error) {
       toast.error("Error al agregar la compra");
+    } finally {
+      reset();
     }
   };
 

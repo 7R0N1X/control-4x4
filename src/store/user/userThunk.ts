@@ -9,9 +9,8 @@ export const createNewPurchase = (data: any) => {
       const { uid } = getState().auth.auth;
       if (!uid) return;
 
-      const docRef = await addDoc(collection(db, `users/${uid}/purchases`), data );
-      const formatedDate = new Date(data.date).toLocaleDateString();
-      dispatch(setPurchase({ ...data, date: formatedDate, id: docRef.id }));
+      const docRef = await addDoc(collection(db, `users/${uid}/purchases`), {...data, id: uid} );
+      dispatch(setPurchase({ ...data, id: docRef.id }));
     } catch (error) {
       console.error(error)
       throw error;
@@ -34,7 +33,7 @@ export const readPurchasesThunk = () => {
 
         return {
           id: docSnap.id,
-          date: data.date ? new Date(data.date).toLocaleDateString() : "",
+          date: data.date || "",
           store: data.store || "",
           trackingNumber: data.trackingNumber || "",
           amount: data.amount || 0,

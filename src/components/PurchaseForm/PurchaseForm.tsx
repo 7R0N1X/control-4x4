@@ -11,6 +11,7 @@ import { DateField } from "@components/Form/FormInput/DateField/DateField";
 import { StoreField } from "@components/Form/FormInput/StoreField/StoreField";
 import { TrackingField } from "@components/Form/FormInput/TrackingField/TrackingField";
 import { AmountField } from "@components/Form/FormInput/AmountField/AmountField";
+import { formatDate } from "@utils/formatDate";
 
 export type PurchaseFormData = {
   id: string;
@@ -36,14 +37,7 @@ export const PurchaseForm = () => {
   useEffect(() => {
     if (purchaseToEdit.length > 0) {
       const purchase = purchaseToEdit[0];
-      const [day, month, year] = purchase.date.split("/");
-      const formattedDate = new Date(
-        `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`,
-      )
-        .toISOString()
-        .split("T")[0];
-
-      setValue("date", formattedDate);
+      setValue("date", formatDate(purchase.date));
       setValue("store", purchase.store);
       setValue("trackingNumber", purchase.trackingNumber);
       setValue("amount", purchase.amount);
@@ -65,7 +59,7 @@ export const PurchaseForm = () => {
         return;
       } else {
         if (availableBalance >= data.amount && data.amount != 0) {
-          await dispatch(createNewPurchase(data));
+          await dispatch(createNewPurchase({...data, date: formatDate(data.date)}));
           toast.success("Compra agregada exitosamente");
           return;
         }
@@ -104,7 +98,7 @@ export const PurchaseForm = () => {
           <StoreField register={register} errors={errors} />
           <TrackingField register={register} errors={errors} />
           <AmountField register={register} errors={errors} />
-          
+
           <FormButton
             type="internal"
             text={`${isEditing ? "Guardar cambios" : "Agregar compra"}`}

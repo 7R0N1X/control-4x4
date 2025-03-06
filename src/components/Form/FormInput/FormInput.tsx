@@ -19,6 +19,7 @@ export const FormInput = ({ id, type, placeholder, icon, ...props }: FormInputPr
         id={id}
         type={type}
         step={`${type === "number" ? "any" : ""}`}
+        min={`${type === "number" ? 1 : ''}`}
         placeholder={placeholder}
         className="flex h-10 w-full rounded-md border border-[#9394A5]/50 bg-white py-2 pr-3 pl-10 text-sm"
         {...props}

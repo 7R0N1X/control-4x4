@@ -9,6 +9,7 @@ import { TableRow } from "@components/Table/TableRow";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 
+
 export const PurchaseTable = () => {
   const dispatch = useDispatch<AppDispatch>();
   const purchases = useSelector((statate: RootState) => statate.user.purchases);
@@ -57,7 +58,7 @@ export const PurchaseTable = () => {
                 <TableRow key={purchase.id} dataId={purchase.id}>
                   <TableCell type="body">{String(purchase.date)}</TableCell>
                   <TableCell type="body">{purchase.store}</TableCell>
-                  <TableCell type="body">{purchase.trackingNumber}</TableCell>
+                  <TableCell type="body">{<a href={`https://parcelsapp.com/es/tracking/${purchase.trackingNumber}`} target="_blank" rel="noopener noreferrer" title={`Rastrear paquete: ${purchase.trackingNumber}`}>{purchase.trackingNumber}</a>}</TableCell>
                   <TableCell type="body" textPosition="text-right">
                     ${purchase.amount.toFixed(2)}
                   </TableCell>

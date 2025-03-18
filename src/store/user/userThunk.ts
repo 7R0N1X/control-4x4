@@ -3,13 +3,13 @@ import { collection, addDoc, getDocs, doc, setDoc, getDoc, deleteDoc, updateDoc,
 import { db } from "@/firebase/config";
 import { loadPurchases, PurchaseData, setAnnualQuota, setIsEditing, setPurchase } from "./userSlice";
 
-export const createNewPurchase = (data: any) => {
+export const createNewPurchase = (data: PurchaseData) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {
       const { uid } = getState().auth.auth;
       if (!uid) return;
 
-      const docRef = await addDoc(collection(db, `users/${uid}/purchases`), {...data, id: uid} );
+      const docRef = await addDoc(collection(db, `users/${uid}/purchases`), {...data} );
       dispatch(setPurchase({ ...data, id: docRef.id }));
     } catch (error) {
       console.error(error)
@@ -29,7 +29,7 @@ export const readPurchasesThunk = () => {
       const querySnapshot = await getDocs(purchasesQuery);
 
       const purchases: PurchaseData[] = querySnapshot.docs.map((docSnap) => {
-        const {date, store, trackingNumber, amount} = docSnap.data() as PurchaseData;
+        const { date, store, trackingNumber, amount } = docSnap.data() as PurchaseData;
 
         return {
           id: docSnap.id,

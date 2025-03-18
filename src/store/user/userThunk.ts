@@ -29,14 +29,14 @@ export const readPurchasesThunk = () => {
       const querySnapshot = await getDocs(purchasesQuery);
 
       const purchases: PurchaseData[] = querySnapshot.docs.map((docSnap) => {
-        const data = docSnap.data();
+        const {date, store, trackingNumber, amount} = docSnap.data() as PurchaseData;
 
         return {
           id: docSnap.id,
-          date: data.date || "",
-          store: data.store || "",
-          trackingNumber: data.trackingNumber || "",
-          amount: data.amount || 0,
+          date: date || "",
+          store: store || "",
+          trackingNumber: trackingNumber || "",
+          amount: amount || 0,
         };
       });
 

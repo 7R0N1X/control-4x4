@@ -86,7 +86,7 @@ export const setAnnualQuotaThunk = (amount: number) => {
     try {
       const { uid } = getState().auth.auth;
       if (!uid) return;
-      
+
       setDoc(doc(db, "users", `${uid}`), { annualQuota: amount }, { merge: true });
       dispatch(setAnnualQuota(amount));
     } catch (error) {

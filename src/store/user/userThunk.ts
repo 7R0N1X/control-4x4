@@ -53,11 +53,12 @@ export const updatePurchaseThunk = (purchaseId: string, data: PurchaseData) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {
       const { uid } = getState().auth.auth;
+      if (!uid) return;
+
       const purchaseRef = doc(db, `users/${uid}/purchases/${purchaseId}`);
       dispatch(setIsEditing(true));
       await updateDoc(purchaseRef, { ...data });
       dispatch(setIsEditing(false));
-      dispatch(readPurchasesThunk());
     } catch (error) {
       console.log(error);
       throw error;

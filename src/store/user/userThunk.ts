@@ -1,7 +1,7 @@
 import { AppDispatch, RootState } from "@store/store";
 import { collection, addDoc, doc, setDoc, getDoc, deleteDoc, updateDoc, orderBy, query, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/config";
-import { loadPurchases, PurchaseData, setAnnualQuota, setIsEditing, setPurchase } from "./userSlice";
+import { loadPurchases, PurchaseData, setAnnualQuota, setIsEditing } from "./userSlice";
 
 export const createNewPurchaseThunk = (data: PurchaseData) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
@@ -9,8 +9,7 @@ export const createNewPurchaseThunk = (data: PurchaseData) => {
       const { uid } = getState().auth.auth;
       if (!uid) return;
 
-      const docRef = await addDoc(collection(db, `users/${uid}/purchases`), {...data} );
-      dispatch(setPurchase({ ...data, id: docRef.id }));
+      await addDoc(collection(db, `users/${uid}/purchases`), {...data} );
     } catch (error) {
       console.error(error)
       throw error;

@@ -82,13 +82,12 @@ export const deletePurchaseThunk = (purchaseId: string) => {
 };
 
 export const setAnnualQuotaThunk = (amount: number) => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
+  return async (_dispatch: AppDispatch, getState: () => RootState) => {
     try {
       const { uid } = getState().auth.auth;
       if (!uid) return;
 
       setDoc(doc(db, "users", `${uid}`), { annualQuota: amount }, { merge: true });
-      dispatch(setAnnualQuota(amount));
     } catch (error) {
       console.error(error)
       throw error;

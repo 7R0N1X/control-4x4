@@ -1,5 +1,5 @@
 import { AppDispatch, RootState } from "@store/store";
-import { collection, addDoc, getDocs, doc, setDoc, getDoc, deleteDoc, updateDoc, orderBy, query } from "firebase/firestore/lite";
+import { collection, addDoc, doc, setDoc, getDoc, deleteDoc, updateDoc, orderBy, query, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/config";
 import { loadPurchases, PurchaseData, setAnnualQuota, setIsEditing, setPurchase } from "./userSlice";
 
@@ -19,30 +19,32 @@ export const createNewPurchaseThunk = (data: PurchaseData) => {
 };
 
 export const readPurchasesThunk = () => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
+  return (dispatch: AppDispatch, getState: () => RootState) => {
     try {
       const { uid } = getState().auth.auth;
       if (!uid) return;
 
       const purchasesRef = collection(db, `users/${uid}/purchases`);
       const purchasesQuery = query(purchasesRef, orderBy("date", "desc"));
-      const querySnapshot = await getDocs(purchasesQuery);
+      
+      onSnapshot(purchasesQuery, (querySnapshot) => {
+          const purchases: PurchaseData[] = querySnapshot.docs.map((docSnap) => {
+            const { date, store, trackingNumber, amount } = docSnap.data() as PurchaseData;
 
-      const purchases: PurchaseData[] = querySnapshot.docs.map((docSnap) => {
-        const { date, store, trackingNumber, amount } = docSnap.data() as PurchaseData;
+            return {
+              id: docSnap.id,
+              date: date || "",
+              store: store || "",
+              trackingNumber: trackingNumber || "",
+              amount: amount || 0,
+            };
+          });
 
-        return {
-          id: docSnap.id,
-          date: date || "",
-          store: store || "",
-          trackingNumber: trackingNumber || "",
-          amount: amount || 0,
-        };
-      });
-
-      dispatch(loadPurchases(purchases));
+          dispatch(loadPurchases(purchases));
+        }
+      );
     } catch (error) {
-      console.error(error);
+      console.log(error)      
       throw error;
     }
   };

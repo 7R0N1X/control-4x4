@@ -67,12 +67,13 @@ export const updatePurchaseThunk = (purchaseId: string, data: PurchaseData) => {
 };
 
 export const deletePurchaseThunk = (purchaseId: string) => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
+  return async (_dispatch: AppDispatch, getState: () => RootState) => {
     try {
       const { uid } = getState().auth.auth;
+      if (!uid) return;
+
       const purchaseRef = doc(db, `users/${uid}/purchases/${purchaseId}`);
       await deleteDoc(purchaseRef);
-      dispatch(readPurchasesThunk());
     } catch (error) {
       console.error(error)
       throw error;

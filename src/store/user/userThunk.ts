@@ -3,7 +3,7 @@ import { collection, addDoc, getDocs, doc, setDoc, getDoc, deleteDoc, updateDoc,
 import { db } from "@/firebase/config";
 import { loadPurchases, PurchaseData, setAnnualQuota, setIsEditing, setPurchase } from "./userSlice";
 
-export const createNewPurchase = (data: PurchaseData) => {
+export const createNewPurchaseThunk = (data: PurchaseData) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {
       const { uid } = getState().auth.auth;

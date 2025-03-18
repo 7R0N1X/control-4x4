@@ -1,4 +1,4 @@
-import { createNewPurchase, updatePurchaseThunk } from "@store/user/userThunk";
+import { createNewPurchaseThunk, updatePurchaseThunk } from "@store/user/userThunk";
 import { formatDate } from "@utils/formatDate";
 import { PurchaseData, setIsEditing, setPurchaseEdit } from "@store/user/userSlice";
 import { PurchaseFormData } from "@components/PurchaseForm/PurchaseForm";
@@ -29,7 +29,7 @@ export const usePurchaseForm = ({ dispatch, purchaseToEdit, isEditing, available
         }
       } else {
         if (availableBalance >= data.amount && data.amount != 0) {
-          dispatch(createNewPurchase({ ...data, date: formatDate(data.date) }));
+          dispatch(createNewPurchaseThunk({ ...data, date: formatDate(data.date) }));
           toast.success("Compra agregada exitosamente");
           return;
         }

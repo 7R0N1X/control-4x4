@@ -1,5 +1,5 @@
 import { AppDispatch, RootState } from "@store/store";
-import { collection, addDoc, doc, setDoc, getDoc, deleteDoc, updateDoc, orderBy, query, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, deleteDoc, updateDoc, orderBy, query, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/config";
 import { loadPurchases, PurchaseData, setAnnualQuota, setIsEditing } from "./userSlice";
 

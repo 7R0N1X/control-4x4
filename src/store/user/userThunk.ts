@@ -99,10 +99,17 @@ export const getAnnualQuotaThunk = () => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {
       const { uid } = getState().auth.auth;
+      if (!uid) return;
+
       const docRef = doc(db, "users", `${uid}`);
-      const data = (await getDoc(docRef)).data();
-      data && dispatch(setAnnualQuota(data.annualQuota));
+      onSnapshot(docRef, (doc) => {
+        if (doc.data() !== undefined) {
+          dispatch(setAnnualQuota(doc.data()?.annualQuota));
+        }
+      })
+      
     } catch (error) {
+      console.error(error)
       throw error;
     }
   };

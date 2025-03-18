@@ -4,7 +4,7 @@ import { db } from "@/firebase/config";
 import { loadPurchases, PurchaseData, setAnnualQuota, setIsEditing } from "./userSlice";
 
 export const createNewPurchaseThunk = (data: PurchaseData) => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
+  return async (_dispatch: AppDispatch, getState: () => RootState) => {
     try {
       const { uid } = getState().auth.auth;
       if (!uid) return;

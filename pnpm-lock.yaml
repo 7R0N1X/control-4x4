@@ -17,6 +17,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.0.4
         version: 4.0.6(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1))
+      big.js:
+        specifier: ^6.2.2
+        version: 6.2.2
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -937,6 +940,9 @@ packages:
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  big.js@6.2.2:
+    resolution: {integrity: sha512-y/ie+Faknx7sZA5MfGA2xKlu0GDv8RWrXGsmlteyJQ2lvoKv9GBK/fpRMc2qlSoBAgNxrixICFCBefIq8WCQpQ==}
 
   brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -2518,6 +2524,8 @@ snapshots:
   argparse@2.0.1: {}
 
   balanced-match@1.0.2: {}
+
+  big.js@6.2.2: {}
 
   brace-expansion@1.1.11:
     dependencies:

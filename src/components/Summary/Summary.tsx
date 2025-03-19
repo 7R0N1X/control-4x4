@@ -1,4 +1,5 @@
 import { AppDispatch, RootState } from "@store/store";
+import { formatCurrency } from "@utils/formatCurrency";
 import { getAnnualQuotaThunk } from "@store/user/userThunk";
 import { setAvailableBalance, setTotalImported } from "@store/user/userSlice";
 import { SummaryCard } from "@components/Summary/SummaryCard";
@@ -9,7 +10,9 @@ import { Wallet, PiggyBank, CreditCard } from "lucide-react";
 export const Summary = () => {
   const dispatch = useDispatch<AppDispatch>();
   const annualQuota = useSelector((state: RootState) => state.user.annualQuota);
-  const { purchases, availableBalance, totalImported } = useSelector((state: RootState) => state.user);
+  const { purchases, availableBalance, totalImported } = useSelector(
+    (state: RootState) => state.user,
+  );
 
   useEffect(() => {
     dispatch(getAnnualQuotaThunk());
@@ -26,19 +29,19 @@ export const Summary = () => {
         icon={Wallet}
         title="Cupo Anual"
         subtitle="Límite establecido"
-        amount={annualQuota.toFixed(2)}
+        amount={formatCurrency(annualQuota)}
       />
       <SummaryCard
         icon={PiggyBank}
         title="Saldo Disponible"
         subtitle="Disponible para compras"
-        amount={availableBalance.toFixed(2)}
+        amount={formatCurrency(availableBalance)}
       />
       <SummaryCard
         icon={CreditCard}
         title="Total Importado"
         subtitle="Valor acumulado"
-        amount={totalImported.toFixed(2)}
+        amount={formatCurrency(totalImported)}
       />
     </div>
   );

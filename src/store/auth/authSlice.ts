@@ -35,10 +35,9 @@ export const authSlice = createSlice({
       state.auth = action.payload;
     },
 
-    setLogOut: (state, action: PayloadAction<string | undefined>) => {
+    setLogOut: (state, action: PayloadAction<AuthData | undefined>) => {
       state.auth = {
-        ...initialState.auth,
-        errorMessage: action.payload || null,
+        ...initialState.auth, ...action.payload || null,
       };
     },
 
@@ -52,6 +51,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setLogIn, setLogOut, setAuthenticated, setLoading } =
-  authSlice.actions;
+export const { setLogIn, setLogOut, setAuthenticated, setLoading } = authSlice.actions;
 export default authSlice.reducer;

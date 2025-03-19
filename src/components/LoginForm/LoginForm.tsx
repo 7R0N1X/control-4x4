@@ -1,11 +1,14 @@
-import { AppDispatch } from "@store/store";
+import { AppDispatch, RootState } from "@store/store";
 import { FormButton } from "@components/Form/FormButton";
 import { FormInput } from "@components/Form/FormInput/FormInput";
 import { FormLabel } from "@components/Form/FormLabel";
 import { FormLink } from "@components/Form/FormLink";
 import { LockIcon, Mail } from "lucide-react";
+import { setLogOut } from "@store/auth/authSlice";
 import { signInWithEmailAndPasswordThunk, signInWithGoogleThunk } from "@store/auth/authThunk";
-import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 type LoginForm = {
@@ -20,10 +23,10 @@ interface LoginFormProps {
 export const LoginForm = ({ onToggleModal }: LoginFormProps) => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<LoginForm>();
   const dispatch = useDispatch<AppDispatch>();
+  const { auth: { errorMessage } } = useSelector((state: RootState) => state.auth)
 
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
     if (!data.email || !data.password) return;
-
     const { email, password } = data;
     dispatch(signInWithEmailAndPasswordThunk(email, password));
     reset();
@@ -32,6 +35,13 @@ export const LoginForm = ({ onToggleModal }: LoginFormProps) => {
   const onSignInWithGoogle = () => {
     dispatch(signInWithGoogleThunk());
   };
+
+  useEffect(() => {
+    if (errorMessage) {
+      toast.error(errorMessage);
+      dispatch(setLogOut())
+    }
+  }, [errorMessage]);
 
   return (
     <div className="mt-8 w-full max-w-[450px] space-y-4 rounded-lg p-6 ring shadow-sm ring-[#9394A5]/20">

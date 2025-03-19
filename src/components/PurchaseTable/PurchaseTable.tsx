@@ -1,5 +1,6 @@
 import { AppDispatch, RootState } from "@store/store";
 import { deletePurchaseThunk } from "@store/user/userThunk";
+import { formatCurrency } from "@utils/formatCurrency";
 import { setIsEditing, setPurchaseEdit } from "@store/user/userSlice";
 import { Table } from "@components/Table/Table";
 import { TableBody } from "@components/Table/TableBody";
@@ -60,7 +61,7 @@ export const PurchaseTable = () => {
                   <TableCell type="body">{purchase.store}</TableCell>
                   <TableCell type="body">{<a href={`https://parcelsapp.com/es/tracking/${purchase.trackingNumber}`} target="_blank" rel="noopener noreferrer" title={`Rastrear paquete: ${purchase.trackingNumber}`}>{purchase.trackingNumber}</a>}</TableCell>
                   <TableCell type="body" textPosition="text-right">
-                    ${purchase.amount.toFixed(2)}
+                    ${formatCurrency(purchase.amount)}
                   </TableCell>
                   <TableCell type="action" onDelete={onDelete} onUpdate={onUpdate}></TableCell>
                 </TableRow>

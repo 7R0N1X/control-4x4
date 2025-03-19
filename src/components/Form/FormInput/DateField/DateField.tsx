@@ -15,6 +15,7 @@ export const DateField = ({ register, errors }: DateFieldProps) => {
       <FormLabel htmlFor="date" text="Fecha" />
       <FormInput
         type="date"
+        max={new Date().toISOString().split("T")[0]}
         id="date"
         {...register("date", { required: true })}
         aria-invalid={!!errors.date}

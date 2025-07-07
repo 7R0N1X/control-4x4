@@ -91,7 +91,7 @@ export const RegisterForm = () => {
 
       <FormButton onClick={onSignInWithGoogle} type="external" text="Registrase con Google" />
 
-      <FormLink variant="center" href="/auth/login" text="¿Ya tienes una cuenta? Inicia sesión" />
+      <FormLink variant="center" href="/auth/login" text="¿Ya tienes una cuenta? Inicia sesión" title="Iniciar sesión" />
     </div>
   );
 };

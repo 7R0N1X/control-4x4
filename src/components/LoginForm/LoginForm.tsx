@@ -87,7 +87,7 @@ export const LoginForm = ({ onToggleModal }: LoginFormProps) => {
 
       <FormButton onClick={onSignInWithGoogle} type="external" text="Continuar con Google" />
 
-      <FormLink variant="center" href="/auth/register" text="¿No tienes una cuenta? Regístrate" />
+      <FormLink variant="center" href="/auth/register" text="¿No tienes una cuenta? Regístrate" title="Regístrate" />
     </div>
   );
 };

@@ -71,7 +71,7 @@ export const LoginForm = ({ onToggleModal }: LoginFormProps) => {
         </div>
 
         <div className="flex justify-end">
-          <button type="button" onClick={onToggleModal} className="cursor-pointer text-sm text-[#9394A5]">
+          <button type="button" onClick={onToggleModal} className="cursor-pointer text-sm text-[#9394A5] hover:underline">
             ¿Olvidaste tu contraseña?
           </button>
         </div>

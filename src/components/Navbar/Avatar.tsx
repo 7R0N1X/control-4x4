@@ -28,6 +28,7 @@ export const Avatar = () => {
         <img
           src={photoURL ? photoURL : defaulImage}
           alt={`Foto de ${displayName}`}
+          title={`Foto de ${displayName}`}
           className="size-9 object-cover"
         />
       </picture>

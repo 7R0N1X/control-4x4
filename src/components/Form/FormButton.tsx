@@ -16,7 +16,7 @@ export const FormButton = ({ type, text, onClick }: FormButtonProps) => {
       onClick={onClick}
       className="flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-md bg-[#FFFFFF] px-4 py-2 text-base font-medium text-[#565768] ring ring-[#9394A5] transition-colors duration-300 hover:bg-[#FAFAFA]"
     >
-      <img src={Google} alt="Logo de Google" title="Logo de Google" className="size-5" />
+      <img src={Google} aria-hidden="true" alt="" className="size-5" />
       {text}
     </button>
   );

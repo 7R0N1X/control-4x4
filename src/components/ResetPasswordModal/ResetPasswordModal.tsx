@@ -44,7 +44,7 @@ export const ResetPasswordModal = ({ onClose }: ResetPasswordModalProps) => {
             {...register("email", { required: true })}
             aria-invalid={!!errors.email}
           />
-          <span className="text-sm text-[#71717a]">
+          <span className="text-sm text-[#565768]">
             Si el correo está registrado, recibirás un enlace para restablecer
             tu contraseña.
           </span>

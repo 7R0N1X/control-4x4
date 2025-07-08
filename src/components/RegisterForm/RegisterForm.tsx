@@ -84,7 +84,7 @@ export const RegisterForm = () => {
 
         <div className="flex items-center gap-2.5">
           <div className="h-[1px] w-full bg-[#D9D9D9]"></div>
-          <span className="font-medium text-[#9394A5]">o</span>
+          <span className="font-medium text-[#565768]">o</span>
           <div className="h-[1px] w-full bg-[#D9D9D9]"></div>
         </div>
       </form>

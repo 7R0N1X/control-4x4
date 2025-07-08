@@ -71,7 +71,7 @@ export const LoginForm = ({ onToggleModal }: LoginFormProps) => {
         </div>
 
         <div className="flex justify-end">
-          <button type="button" onClick={onToggleModal} className="cursor-pointer text-sm text-[#9394A5] hover:underline">
+          <button type="button" onClick={onToggleModal} className="cursor-pointer text-sm text-[#565768] hover:underline">
             ¿Olvidaste tu contraseña?
           </button>
         </div>
@@ -80,7 +80,7 @@ export const LoginForm = ({ onToggleModal }: LoginFormProps) => {
 
         <div className="flex items-center gap-2.5">
           <div className="h-[1px] w-full bg-[#D9D9D9]"></div>
-          <span className="font-medium text-[#9394A5]">o</span>
+          <span className="font-medium text-[#565768]">o</span>
           <div className="h-[1px] w-full bg-[#D9D9D9]"></div>
         </div>
       </form>

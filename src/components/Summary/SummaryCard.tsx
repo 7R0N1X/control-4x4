@@ -35,7 +35,7 @@ export const SummaryCard = ({ icon, title, subtitle, amount }: SummaryCardProps)
           <h2 className="text-lg font-semibold">{title}</h2>
           {React.createElement(icon, { size: 32 })}
         </div>
-        <p className="mb-2 text-3xl font-bold">${amount}</p>
+        <span className="mb-2 text-3xl font-bold">${amount}</span>
         <div className="flex items-center text-gray-100">
           <TrendingUp size={16} className="mr-1" />
           <span className="text-sm">{subtitle}</span>
